@@ -1,0 +1,16 @@
+================================================================================
+Monthly Payment Calculator (Mini Vue Project Within a Project)
+================================================================================
+
+--------------------------------------------------------------------------------
+Payment Calculator Markup (Sliders)
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Composables - Reusable Logic in Vue (Reactive Monthly Payment)
+--------------------------------------------------------------------------------
+
+- Not trivial logic, copy/pasing logic from component to component would suck
+- Use composable
+    - A function that will use the Vue composition API to encapulate and reuse logic
+    - Some JS function that accepts some refs and arguments and returns values to be used inside components or other composables

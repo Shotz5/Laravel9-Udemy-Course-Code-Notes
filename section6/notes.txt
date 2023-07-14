@@ -1,0 +1,80 @@
+================================================================================
+Your first SPA
+================================================================================
+
+--------------------------------------------------------------------------------
+Creating First Pages
+--------------------------------------------------------------------------------
+
+- Laravel routing on server-side
+- Vue routing on client-side
+    - Decides which vue component to render in browser for which route
+- Intertia allows us to use server-side routing in Laravel
+- Route Maps to Controller that has methods that handle requests
+- Classes put into specific directory that have specific methods that are bound to routes that execute some logic and return a response
+
+- Controllers organize application logic
+    - Keep actions as short as possible
+    - Know MVC format
+        - See PHP MVC course for this
+
+--------------------------------------------------------------------------------
+Passing Data to Pages
+--------------------------------------------------------------------------------
+
+- To pass data, use array as second arg to inertia helper
+- Props are all values passed to vue component from external source
+    - Using componsition API, just need to call inside <script setup> a function called defineProps
+    - Best practices with props:
+        - camelCase (applied to variables passed from Laravel as well)
+        - One-Way Data Flow
+            - props passed to components are read-only
+            - should not modify data
+        - Prop Validation
+            - You can tell Vue which datatype is expected and required/optional, default, will validate
+
+--------------------------------------------------------------------------------
+Layouts
+--------------------------------------------------------------------------------
+
+- Common layouts, elements that render on every single page
+- PascalCase is common practice with Vue
+- Slots used for common layout, can be added to every single component
+    - Passed content is rendered in place of slot tag, or default value inside tag
+
+--------------------------------------------------------------------------------
+Reactive Data in Vue
+--------------------------------------------------------------------------------
+
+- Reactivity means some data values may be kept in your Vue components, 
+    - when those values change, other values can be updated, and the webpage will automatically update and refresh itself
+- ref() function allows us to define these
+    - Wraps any value you give it in a "proxy object"
+    - Makes this value reactive when it changes, to change the wrapped variable, the JS must use the value property
+- Each time you navigate, the timer resets
+
+--------------------------------------------------------------------------------
+Persistent Layouts with Inertia
+--------------------------------------------------------------------------------
+
+- "layout" option supplied by inertia
+- Composition API no longer requires exporting default option
+- Timer is now persistent across pages
+- Any state the layout has will be unmodified and state is not lost
+
+--------------------------------------------------------------------------------
+Default Layouts
+--------------------------------------------------------------------------------
+
+= Intertia allows us to set a default layout
+    - Changes applied in app.js, no notes, see Github repo
+
+--------------------------------------------------------------------------------
+Advanced JS Topics
+--------------------------------------------------------------------------------
+
+- Function in JS - `function () {}`
+    - Arrow function - `() => h(App, props)`
+    - Inheit parent context
+
+

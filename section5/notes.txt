@@ -1,0 +1,36 @@
+================================================================================
+Setting up Laravel, Vue, and Inertia
+================================================================================
+
+--------------------------------------------------------------------------------
+Creating Laravel Project
+--------------------------------------------------------------------------------
+
+- `composer create-project laravel/laravel larazillow`
+    - Doesn't work on network drives :(
+- Load web server using `php arisan serve`
+
+--------------------------------------------------------------------------------
+Adding Vue and Vite to the Stack
+--------------------------------------------------------------------------------
+
+- `npm install --save-dev vue @vitejs`
+- Import vue to vite.config.js 
+- `npm run dev`
+    - in package.json, `"scripts": "dev"` alias for `vite` command
+    - also `npm run build`, which calls `vite build` to prepare assets for production use
+
+--------------------------------------------------------------------------------
+Configuring Intertia.js
+--------------------------------------------------------------------------------
+
+= Server Side
+- `composer require inertia.js`
+- Add @vite and @inertia directives
+    - These inertia directives will be replaced with the content of the view component pages
+= Client Side
+- `Npm install inertiajs/vue3`
+- Paste init code into resources/js/app.js
+    - Resolve - tells inertia where to look for Vue components with pages
+    - Inertia already has this init code accurate
+    - Setup - creates, mounts, runs vue application

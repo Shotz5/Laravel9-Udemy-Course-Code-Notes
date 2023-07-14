@@ -1,0 +1,10 @@
+================================================================================
+Authentication and Security
+================================================================================
+
+--------------------------------------------------------------------------------
+Authentication Controller and Routes
+--------------------------------------------------------------------------------
+
+- Resources can be *abstract*, not always data or tangible
+    - Ex. Sessions (can be created and destoryed, but not actually stored anywhere)

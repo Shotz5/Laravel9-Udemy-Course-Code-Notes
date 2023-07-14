@@ -1,0 +1,244 @@
+================================================================================
+Working with the Database
+================================================================================
+
+--------------------------------------------------------------------------------
+Laravel Debugbar & IDE Helper
+--------------------------------------------------------------------------------
+
+- Laravel Debugbar
+- Laravel IDE Helper
+
+--------------------------------------------------------------------------------
+Connecting to the Database
+--------------------------------------------------------------------------------
+
+- Using docker for this
+- Installed Adminer which allows database connections at localhost:8080
+- database.php responsible for connection to database
+    - function env tries to load environment variable, or default
+
+--------------------------------------------------------------------------------
+Models and Migrations
+--------------------------------------------------------------------------------
+
+- Blah blah blah how dbs work, not new
+- Laravel uses Eloquent as an ORM
+- Models made using `php artisan make:model`
+- The class is an instance of one of the tables rows
+- Have to make a migration to make the table
+    - `php artisan make:model -m`
+    - Makes model and migration file
+    - Will automatically match naming conventions
+- `php artisan migrate`
+    - runs migrations
+
+--------------------------------------------------------------------------------
+Working with Migrations
+--------------------------------------------------------------------------------
+
+- `php artisan make:migration <some description>`
+    - Makes the migration with a best guess at what table to modify
+- `php artisan migrate:status`
+    - Shows which migrations have been run
+- `php artisan migrate:rollback`
+    - Rolls back migrations applied from last run
+    - Based on "batch" in migrations table in database
+
+--------------------------------------------------------------------------------
+Model Factories and Seeders
+--------------------------------------------------------------------------------
+
+- Helps to be able to generate datasets with either manual or automated testing
+- Define how to fill the database table with fake generated data
+- `php artisan make:factory <Name>Factory`
+- Factory is a specific class that always has definition function
+- Returns array which tells Laravel what value should be for each column of the table
+- Faker allows us to generate some fake data for our model
+
+- Seeding is the process of filling the database with fake data
+- Can create as many seeding classes as needed
+- Always a default one called "DatabaseSeeder"
+- Should only create another one if you have specific requirements for how to generate data
+- `php artisan db:seed`
+- factory(number) => number means how many to generate
+- Can override factory data with an optional array parameter
+
+- Can rerun all migrations using `php artisan migrate:refresh`
+    - Runs all down migrations, then all up again
+
+- `php artisan db:seed` again, just adds to what's already been seeded
+- To reseed, must run `php artisan migrate:refresh --seed`
+
+--------------------------------------------------------------------------------
+Querying the Database
+--------------------------------------------------------------------------------
+
+- Returns instance of a Collection method, all records are instances of Listing object
+- find() finds object passed in the parameter
+- where('beds', '>', '4')
+    - just builds the query, need to call get() to get results
+- orWhere will or the query together
+- orderBy(fieldName)
+
+--------------------------------------------------------------------------------
+Querying the Database (CHALLENGE)
+--------------------------------------------------------------------------------
+
+- Find the listing which has at least 4 beds with the cheapest price
+    - Can't find any such listings - try with 3 beds, 2 beds, etc.
+    - First method can be run against the query, will just return the first object matching the query
+    - only returns a listing
+
+--------------------------------------------------------------------------------
+Updating and Inserting Data, Mass Assignment
+--------------------------------------------------------------------------------
+
+- By default, laravel assumes you want timestamps on your Models
+    - Creating a brand new record without defining these columns will still add them automatically
+- create() will automatically try to save the new record
+    - By default, this will throw a MassAssignmentException as this has to be toggled on using the $fillable variable 
+    
+--------------------------------------------------------------------------------
+Resource Controller and Route Model Binding
+--------------------------------------------------------------------------------
+
+`php artisan make:controller ListingController --resource`
+- Resource controllers are an idea to center your controller around one specific resource (ie Eleguent Model)
+- All HTTP requests, URIs, Actions, and Routes are already predefined
+    - index - for listing all resources of any specific kind
+    - create - show a form to create a new resource
+    - store - actual handling of submitted form
+    - show - display one resource (takes argument)
+    - edit - edit form
+    - update - apply changes made through edit form
+    - destory - delete
+- Disable some routes using only()
+- Will pass the first parameter in the listing
+= Route Model Binding
+    - Type hint the argument with the Listing model, and it will automatically fetch the model by the given id in the route parameter and it will be available
+
+--------------------------------------------------------------------------------
+Vue Directives (v-for, v-bind) and Custom Components
+--------------------------------------------------------------------------------
+
+- Directives can be added to any tag
+- Like html attributes
+- It is good practice to use :key="some id" for a iterable object
+    - Can cause issues
+    - May want to reuse some div elements for efficiency
+    - Can better process data for efficiency
+- :key="listing.id" <=> v-bind:key="listing:id"
+- If there is no colon, every element is treated as having the same key
+    - If there is, it searches for the defined variable
+- Vue multiple root elements throws error on 2 or lower, now can be any amount
+= Repeating code in Vue in two different Components bad, create common component
+- Can use @ character for path
+- If you'd like to have the index, use v-for="(listing, index) in listings"
+
+--------------------------------------------------------------------------------
+Handing Forms in Vue
+--------------------------------------------------------------------------------
+
+- <style scoped> creates styling within this component only
+- reactive is like ref
+    - it makes reactive data
+    - the difference is that ref is only useful for single values
+    - while reactive is used for objects
+- all properties are reactive as long as they're accessed from the original object `const x = form.beds`, x is not reactive
+- default to ref, reactive for object
+
+- v-model has modifiers
+    - ie "v-model.number" - after a change on an input, bound variable converted to number
+
+- Every HTML has some kind of built in event, click, submitted, etc
+- Every form casn handle an onsubmit for javascript
+- Vue is @submit 
+    .prevent will prevent the default behaviour
+
+- useForm makes form reactive, and will get their own methods, including post
+    - Don't need to use reactive and router
+
+--------------------------------------------------------------------------------
+Handling Forms in Laravel
+--------------------------------------------------------------------------------
+
+- $request->all() gets all data in the POST
+- can read individual fields ->beds
+- can set individual fields on new object
+- created needs fillable property
+- Use sanitisation and validation if submitted by users
+- In API, you'd return the created resource
+    - can create a redirect to the listing page for the new resource
+- One-time messages - flash messages, successful or not
+    - Required middlewares
+
+--------------------------------------------------------------------------------
+Middlewares and Sharing Data with All Pages
+--------------------------------------------------------------------------------
+
+= Flash messages
+    - One time messages stored in session removed on next request
+= Middleware
+    - Laravel thing, ran before every HTTP request
+    - Used to verify the user making the request
+    - Or making sure the user is authorized to do something
+    - PHP class that can be generated
+        - Has handle method with two args
+        - request
+            - same type of object in controller actions
+            - function that needs to be called to move to the next middleware
+    - Used to share some data with all the view pages
+    - Kernel class
+        - $middleware
+            - Defines middlewares executed on every page load from top to bottom
+        - $middlewareGroups
+            - Do two kinds of things, tradition web applications, and apis
+    - `php artisan inertia:middleware`
+        - creates HandleIntertiaRequests
+        - share method - add all additional data that should be shared with every single view page
+        - add 'flash' to share function
+
+--------------------------------------------------------------------------------
+Computed Data and Conditional Rendering (Displaying Flash Messages)
+--------------------------------------------------------------------------------
+
+- conditionally render using "v-if"
+- Use $page.props.xxx as defined in HandleIntertiaRequests
+= Computed Properties
+    - Data that gets derrived from other reactive or non-reactive data
+    - Conditional logic essentially
+    - Every time a ref gets updated, computed properties will recompute, and update the UI
+
+--------------------------------------------------------------------------------
+Data Validation (Backend and Frontend)
+--------------------------------------------------------------------------------
+
+- ALWAYS VERIFY, VALIDATE, OR SANITIZE USER DATA
+- All method that returns all the data that is being sent
+- Request has method validate()
+- ... in PHP, allows you to merge two arrays together
+    - If the second validate contains keys that exist in the first array, they will be replaced
+    - Large amount of validation rules
+    - Laravel encounters any validation errors -> will produce validation errors stored in the session
+- useForm in Vue automatically has an errors field which can potentially contain some errors for every field you submit
+
+--------------------------------------------------------------------------------
+Edit Form
+--------------------------------------------------------------------------------
+
+- Can use except in web.php to include only the ones not implemented
+
+--------------------------------------------------------------------------------
+Deleting Data
+--------------------------------------------------------------------------------
+
+- Soft deletes exist, eloquent ignored by default, but can still be recovered/accessed
+
+--------------------------------------------------------------------------------
+Laravel Route Names in Vue
+--------------------------------------------------------------------------------
+
+- Add a library called ziggy that allows us to load routes
+- add resolve to vite config
+- Use route() function to add laravel routes based on model

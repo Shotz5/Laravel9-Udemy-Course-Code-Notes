@@ -1,0 +1,103 @@
+================================================================================
+Adding Some Style (Tailwind CSS)
+================================================================================
+
+--------------------------------------------------------------------------------
+Installing and Setting up Tailwind CSS
+--------------------------------------------------------------------------------
+
+- Tailwind defines some documented CSS classes that style for us
+- Processes all vue and blade files and only uses the classes it needs
+- Follow instructions for setting up on Tailwind website
+    - For laravel, Vite is already installed
+- ** => recursive
+
+= Tailwind Directives
+- put in resources/css/app.css
+
+= Offers plugins
+- We add forms plugin
+- Add plugin to plugins in tailwind.config.js
+
+- Import CSS file in app.js
+
+- Use dark: for system dark mode
+- Use no prefix for light mode
+- Can be overriden
+
+--------------------------------------------------------------------------------
+Why Tailwind CSS?
+--------------------------------------------------------------------------------
+
+- Not a UI library, does not provide components
+    - CSS Utility Library
+        - Contains lots of tiny CSS properties
+        - Many of these change only one CSS property
+- Solves problem of class naming being sub-standard
+- Specific CSS attributes and CSS reusability
+- Easy to learn the class names, and know what is going on with the element via class name
+- Add sudoclass for clicks
+- Add breakpoints for responsiveness
+- Reusing styles across many elements
+- Can define global class in app.css using the @apply directive
+- Can add customizations to your theme in tailwind.config.css
+    - Breakpoints,
+    - Colours
+    - Fonts
+    - Spacing,
+    - Borders,
+    - etc.
+
+--------------------------------------------------------------------------------
+Basic Styling of the App
+--------------------------------------------------------------------------------
+
+- Whole shit load of classes were thrown at me with no real explanation lol
+
+--------------------------------------------------------------------------------
+Custom UI Components and Grid Responsive Design
+--------------------------------------------------------------------------------
+
+- Just more messing around with CSS
+
+--------------------------------------------------------------------------------
+Listing Details (non-prop attributes)
+--------------------------------------------------------------------------------
+
+- In order to prop, the component must only have one root element or it will be ignored
+
+--------------------------------------------------------------------------------
+Custom Price Formatting Component
+--------------------------------------------------------------------------------
+
+- To be able to modify the value before rendering it has to be passed as a prop
+
+--------------------------------------------------------------------------------
+Listing Page (Getting even better with resposive design) + Vue Named Slots
+--------------------------------------------------------------------------------
+
+- More CSS no notes
+
+--------------------------------------------------------------------------------
+Styling Forms
+--------------------------------------------------------------------------------
+
+- Still just typing shit
+
+--------------------------------------------------------------------------------
+Extracting Tailwind Styles Using @apply Directive
+--------------------------------------------------------------------------------
+
+- Too much repetitive classes in every single input/label
+= At Rules
+    - At rules are CSS statements that instruct CSS on how to behave
+    - @import, @charset, @namespace, etc
+- @layer and @apply for tailwind components
+
+--------------------------------------------------------------------------------
+Progress Bar Loading Indicator
+--------------------------------------------------------------------------------
+
+- Inertia has a global progress indicator for the page
+    - Helps users know page load progress
+    - npm install @inertiajs/progress

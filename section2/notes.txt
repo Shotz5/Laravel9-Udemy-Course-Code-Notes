@@ -1,0 +1,10 @@
+================================================================================
+Installed PHP 8 On My System
+================================================================================
+
+- C:\php8
+- This was extracted, not installed with an installer
+- Added to Path in windows environment variable
+- Installed composer using an installer
+- Installed node using an installer
+- Docker Desktop
